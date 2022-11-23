@@ -29,7 +29,7 @@ class Router
             $controllerClass = $routeData['controller_class'];
             $method = $routeData['method'];
 
-            $instance = new $controllerClass;
+            $instance = new $controllerClass($routeData['dependency_injection']);
             $instance->$method();
             die();
         }else{

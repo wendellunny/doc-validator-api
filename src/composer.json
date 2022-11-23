@@ -1,0 +1,17 @@
+{
+    "name": "wendellunny/doc-validator-api",
+    "description": "Api Feita em Php Puro para valida\u0000\u0000o de documentos",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "wendellunny",
+            "email": "wendelferreiraportugal@gmail.com"
+        }
+    ],
+    "require": {}
+}

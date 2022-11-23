@@ -8,6 +8,8 @@ require __DIR__
 . DIRECTORY_SEPARATOR
 . 'autoload.php';
 
-$app = new App\Bootstrap\Kernel();
+$routes = new \App\Routes\Routes;
+$router = new \App\Routes\Router($routes);
+$app = new App\Bootstrap\Kernel($router);
 
 $app->execute();

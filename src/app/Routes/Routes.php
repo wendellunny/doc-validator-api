@@ -2,18 +2,15 @@
 
 namespace App\Routes;
 
-use App\Controllers\TestController;
+use App\Controllers\CpfController;
 
 class Routes
 {
     public function get(){
         return [
-            '/teste' => [
-                'controller_class' => TestController::class,
-                'method' => 'teste'
-            ],
-            '/opa' =>[
-                'controller_class' => ''
+            '/cpf/formatter' => [
+                'controller_class' => CpfController::class,
+                'method' => 'formatCpf'
             ]
         ];
     }

@@ -21,7 +21,7 @@ class Router
         
     }
 
-    public function goRoute($request){
+    private function goRoute($request){
         $routes = $this->_routes->get();
 
         if(isset($routes[$request])){

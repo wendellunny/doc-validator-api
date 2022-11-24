@@ -4,29 +4,73 @@ namespace App\Models;
 
 class Cpf
 {
+    /**
+     * Unformatted CPF
+     *
+     * @var string
+     */
     private string $unformattedCpf;
+
+    /**
+     * Formatted CPF
+     *
+     * @var string
+     */
     private string $formattedCpf;
 
-    public function setUnformattedCpf($cpf){
+    /**
+     * Method that sets value in CPF attributes
+     *
+     * @param string $cpf
+     * @return void
+     */
+    public function setUnformattedCpf(string $cpf): void
+    {
         $this->unformattedCpf = $cpf;
         $this->formatCpf();
 
     }
 
-    public function getCpf(){
+    /**
+     * Method to get CPF
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function getCpf(): array
+    {
+        if(empty($this->unformattedCpf)){
+            throw new \Exception("Set Unformatted Cpf Value is Required");  
+        }
+
         return [
             'original' => $this->unformattedCpf,
             'formatted' => $this->formattedCpf
         ];
     }
 
-    private function formatCpf(){
+    /**
+     * Method that formats the passed cpf and updates the formattedCpf attribute
+     *
+     * @return void
+     */
+    private function formatCpf(): void
+    {
         $this->formattedCpf = preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $this->unformattedCpf);
     }
 
-    public function validateCpf(){
-        ini_set('memory_limit', '256M');
-       $cpf = $this->formattedCpf;
+    /**
+     * Method that validates a CPF
+     *
+     * @return boolean
+     * @throws Exception
+     */
+    public function validateCpf(): bool
+    {
+        if(empty($this->unformattedCpf)){
+            throw new \Exception("Set Unformatted Cpf Value is Required");    
+        }
+        $cpf = $this->formattedCpf;
 
         $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
             

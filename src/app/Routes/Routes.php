@@ -19,6 +19,13 @@ class Routes
                 'dependency_injection' => [
                     'cpf_model' => $this->cpfModel
                 ]
+            ],
+            '/cpf/validator' => [
+                'controller_class' => CpfController::class,
+                'method' => 'validateCpf',
+                'dependency_injection' => [
+                    'cpf_model' => $this->cpfModel
+                ]
             ]
         ];
     }

@@ -9,3 +9,4 @@ services:
       volumes:
       - ./src:/var/www/html
       - ./apache2/sites-enabled:/etc/apache2/sites-enabled
+      - ./php:/usr/local/etc/php/conf.d

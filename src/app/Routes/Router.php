@@ -5,8 +5,11 @@ namespace App\Routes;
 
 class Router
 {
-
+    
     private Routes $_routes;
+    private string $_controllerClass;
+    private string $_method;
+    private array $_dependencyInjection;
 
     public function __construct(Routes $routes)
     {
@@ -15,26 +18,55 @@ class Router
 
     public function execute()
     {
-        $request = $_SERVER['REQUEST_URI'];
+        $endpoint = $_SERVER['REQUEST_URI'];
+        $httpMethod = $_SERVER['REQUEST_METHOD'];
 
-        $this->goRoute($request);
-        
+        $this->goRoute($endpoint, $httpMethod);
     }
 
-    private function goRoute($request){
+    private function goRoute($endpoint, $httpMethod){
         $routes = $this->_routes->get();
-
-        if(isset($routes[$request])){
-            $routeData = $routes[$request];
-            $controllerClass = $routeData['controller_class'];
-            $method = $routeData['method'];
-
-            $instance = new $controllerClass($routeData['dependency_injection']);
-            $instance->$method();
-            die();
+        
+        if(isset($routes[$endpoint]) && $httpMethod === $routes[$endpoint]['http_method']){
+            $routeData = $routes[$endpoint];
+            $this->setControllerClass($routeData['controller_class']);
+            $this->setMethod($routeData['method']);
+            $this->setDependencyInjection($routeData['dependency_injection']);
+           
+            $this->callController();  
         }else{
-            echo '<h1>404<h1><h2>Págin Não Encontrada<h2>';
+           $this->showNotFoundPage();
         }
+    }
+
+    private function showNotFoundPage(){
+        echo '<h1>404<h1><h2>Págin Não Encontrada<h2>';
+        die();
+    }
+
+    private function callController(){
+        $controllerClass = $this->_controllerClass;
+        $dependencyInjection = $this->_dependencyInjection;
+        $method = $this->_method;
+
+        $instance = new $controllerClass($dependencyInjection);
+        $instance->$method();
+        die();
+    }
+
+    private function setControllerClass(string $controllerClass)
+    {
+        $this->_controllerClass = $controllerClass;
+    }
+
+    private function setMethod(string $method)
+    {
+        $this->_method= $method;
+    }
+
+    private function setDependencyInjection(array $dependencyInjection)
+    {
+        $this->_dependencyInjection = $dependencyInjection;
     }
     
 

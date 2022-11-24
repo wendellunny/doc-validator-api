@@ -1,4 +1,9 @@
 <?php
+/**
+ * Document formatting and validation API
+ * 
+ * @author wendellunny
+ */
 
 require __DIR__ 
 . DIRECTORY_SEPARATOR 

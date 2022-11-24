@@ -67,11 +67,10 @@ class Cpf
      */
     public function validateCpf(): bool
     {
-        if(empty($this->unformattedCpf)){
-            throw new \Exception("Set Unformatted Cpf Value is Required");    
-        }
         $cpf = $this->formattedCpf;
-
+        if($GLOBALS['__cache']['cpf'][$cpf]){
+            return $GLOBALS['__cache']['cpf'][$cpf]['valid'];
+        }
         $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
             
         if (strlen($cpf) != 11) {

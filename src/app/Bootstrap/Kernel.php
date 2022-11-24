@@ -6,14 +6,29 @@ use App\Routes\Router;
 
 class Kernel 
 {
+    /**
+     * Router
+     *
+     * @var Router
+     */
     private Router $_router;
 
+    /**
+     * Contructor method
+     *
+     * @param Router $router
+     */
     public function __construct(Router $router)
     {
         $this->_router = $router; 
     }
-
-    public function execute()
+    
+    /**
+     * Execute Kernel App
+     *
+     * @return void
+     */
+    public function execute(): void
     {
         $this->_router->execute();
     }

@@ -18,7 +18,7 @@ class CnpjController
         $cnpj = strval($_POST['cnpj']);
         $this->cnpjModel->setUnformattedCnpj($cnpj);
 
-        return json($this->cpfModel->getCpf());
+        return json($this->cnpjModel->getCnpj());
     }
 
     public function validateCnpj(): string

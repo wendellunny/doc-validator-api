@@ -2,7 +2,9 @@
 
 namespace App\Routes;
 
+use App\Controllers\CnpjController;
 use App\Controllers\CpfController;
+use App\Models\Cnpj;
 use App\Models\Cpf;
 
 class Routes
@@ -13,6 +15,8 @@ class Routes
      * @var Cpf
      */
     private Cpf $cpfModel;
+
+    private Cnpj $cnpjModel;
 
     /**
      * Routes
@@ -46,6 +50,24 @@ class Routes
                 'dependency_injection' => [
                     'cpf_model' => $this->cpfModel
                 ]
+            ],
+
+            '/cnpj/formatter' => [
+                'http_method' => 'POST',
+                'controller_class' => CnpjController::class,
+                'method' => 'formatCnpj',
+                'dependency_injection' => [
+                    'cnpj_model' => $this->cnpjModel
+                ]
+            ],
+
+            '/cnpj/validator' => [
+                'http_method' => 'POST',
+                'controller_class' => CnpjController::class,
+                'method' => 'validateCnpj',
+                'dependency_injection' => [
+                    'cnpj_model' => $this->cnpjModel
+                ]
             ]
         ]);
 
@@ -71,5 +93,6 @@ class Routes
     private function instanceClasses(): void
     {
         $this->cpfModel = New Cpf();
+        $this->cnpjModel = New Cnpj();
     }
 }

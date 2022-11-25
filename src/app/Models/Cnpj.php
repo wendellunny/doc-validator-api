@@ -12,8 +12,9 @@ class Cnpj
         if(strlen($cnpj) !== 14){
             throw new \Exception("You did not pass a CNPJ without formatting");  
         }
-
-        $this->unformattedCpnj = $cnpj;
+        
+        $this->unformattedCnpj = $cnpj;
+        $this->formatCnpj();
     }
 
     public function getCnpj(): array

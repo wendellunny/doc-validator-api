@@ -26,6 +26,10 @@ class Cpf
      */
     public function setUnformattedCpf(string $cpf): void
     {
+        if(strlen($cpf) !== 11){ 
+            throw new \Exception("You did not pass a Cpf without formatting");
+            
+        }
         $this->unformattedCpf = $cpf;
         $this->formatCpf();
 
@@ -67,6 +71,9 @@ class Cpf
      */
     public function validateCpf(): bool
     {
+        if(empty($this->unformattedCpf)){
+            throw new \Exception("Set Unformatted Cpf Value is Required");  
+        }
         $cpf = $this->formattedCpf;
         if($GLOBALS['__cache']['cpf'][$cpf]){
             return $GLOBALS['__cache']['cpf'][$cpf]['valid'];

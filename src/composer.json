@@ -5,7 +5,10 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+            "app/helpers/responseHelper.php"
+        ]
     },
     "authors": [
         {
@@ -13,5 +16,8 @@
             "email": "wendelferreiraportugal@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
 }

@@ -25,14 +25,14 @@ class CpfController
     /**
      * Format CPF controller method
      *
-     * @return void
+     * @return string
      */
-    public function formatCpf(): void
+    public function formatCpf(): string
     {
         $cpf = strval($_POST['cpf']);
         $this->cpfModel->setUnformattedCpf($cpf);
 
-        echo json_encode($this->cpfModel->getCpf());
+        return json_encode($this->cpfModel->getCpf());
     }
 
     /**
@@ -40,12 +40,12 @@ class CpfController
      *
      * @return void
      */
-    public function validateCpf(): void
+    public function validateCpf(): string
     {
         $cpf = strval($_POST['cpf']);
         $this->cpfModel->setUnformattedCpf($cpf);
         
-        echo $this->cpfModel->validateCpf()
+        return $this->cpfModel->validateCpf()
         ? json_encode([ 'isValid' => true, 'message' => 'Este CPF é válido', 'cpf' => $this->cpfModel->getCpf(),])
         : json_encode(['isValid' => false, 'message' => 'Este CPF é inválido', 'cpf' => $this->cpfModel->getCpf(),]);
     }

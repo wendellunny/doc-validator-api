@@ -2,6 +2,8 @@
 
 namespace App\Routes;
 
+use Exception;
+
 class Router
 {
     /**
@@ -100,7 +102,14 @@ class Router
         $method = $this->_method;
 
         $instance = new $controllerClass($dependencyInjection);
-        $instance->$method();
+        try{
+            showResponse($instance->$method());
+        }catch(Exception $e){
+            echo json_encode([
+                'error' => $e->getMessage()
+            ],500);
+        }
+        
         die();
     }
 

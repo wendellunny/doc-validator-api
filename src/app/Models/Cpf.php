@@ -27,8 +27,7 @@ class Cpf
     public function setUnformattedCpf(string $cpf): void
     {
         if(strlen($cpf) !== 11){ 
-            throw new \Exception("You did not pass a Cpf without formatting");
-            
+            throw new \Exception("You did not pass a Cpf without formatting");  
         }
         $this->unformattedCpf = $cpf;
         $this->formatCpf();
@@ -75,9 +74,7 @@ class Cpf
             throw new \Exception("Set Unformatted Cpf Value is Required");  
         }
         $cpf = $this->formattedCpf;
-        if($GLOBALS['__cache']['cpf'][$cpf]){
-            return $GLOBALS['__cache']['cpf'][$cpf]['valid'];
-        }
+        
         $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
             
         if (strlen($cpf) != 11) {

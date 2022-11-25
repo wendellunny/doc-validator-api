@@ -32,7 +32,7 @@ class CpfController
         $cpf = strval($_POST['cpf']);
         $this->cpfModel->setUnformattedCpf($cpf);
 
-        return json_encode($this->cpfModel->getCpf());
+        return json($this->cpfModel->getCpf());
     }
 
     /**
@@ -46,7 +46,15 @@ class CpfController
         $this->cpfModel->setUnformattedCpf($cpf);
         
         return $this->cpfModel->validateCpf()
-        ? json_encode([ 'isValid' => true, 'message' => 'Este CPF é válido', 'cpf' => $this->cpfModel->getCpf(),])
-        : json_encode(['isValid' => false, 'message' => 'Este CPF é inválido', 'cpf' => $this->cpfModel->getCpf(),]);
+        ? json([ 
+            'isValid' => true, 
+            'message' => 'Este CPF é válido', 
+            'cpf' => $this->cpfModel->getCpf()
+        ])
+        : json([
+            'isValid' => false,
+            'message' => 'Este CPF é inválido', 
+            'cpf' => $this->cpfModel->getCpf()
+        ]);
     }
 }

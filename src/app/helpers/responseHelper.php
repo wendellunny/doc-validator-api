@@ -9,6 +9,7 @@
 function showResponse(string $response): void
 {
     echo $response;
+    die();
 }
 
 /**
@@ -17,7 +18,7 @@ function showResponse(string $response): void
  * @param Array $array
  * @return string
  */
-function json(Array $array): string
+function json(Array $array, int $code = 200): string
 {
-    return json_encode($array);
+    return json_encode($array,$code);
 }

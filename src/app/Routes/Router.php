@@ -87,8 +87,7 @@ class Router
      */
     private function showNotFoundPage(): void
     {
-        echo '<h1>404<h1><h2>Págin Não Encontrada<h2>';
-        die();
+        showResponse('<h1>404<h1><h2>Págin Não Encontrada<h2>');
     }
 
     /**
@@ -105,12 +104,10 @@ class Router
         try{
             showResponse($instance->$method());
         }catch(Exception $e){
-            echo json_encode([
+            showResponse(json([
                 'error' => $e->getMessage()
-            ],500);
-        }
-        
-        die();
+            ],200));
+        } 
     }
 
     /**

@@ -10,7 +10,7 @@ class Cnpj
     public function setUnformattedCnpj(string $cnpj)
     {
         if(strlen($cnpj) !== 14){
-            throw new \Exception("You did not pass a CNPJ without formatting");  
+            throw new \Exception("You did not pass a CNPJ without formatting", 400);  
         }
         
         $this->unformattedCnpj = $cnpj;
@@ -20,7 +20,7 @@ class Cnpj
     public function getCnpj(): array
     {
         if(empty($this->unformattedCnpj)){
-            throw new \Exception("Set Unformatted Cnpj Value is Required");  
+            throw new \Exception("Set Unformatted CNPJ Value is Required", 400);  
         }
 
         return [
@@ -35,6 +35,10 @@ class Cnpj
     }
 
     public function validateCnpj(){
+        if(empty($this->unformattedCnpj)){
+            throw new \Exception("Set Unformatted CNPJ Value is Required" , 400);  
+        }
+
         $cnpj = $this->unformattedCnpj;
 
         if (strlen($cnpj) != 14)

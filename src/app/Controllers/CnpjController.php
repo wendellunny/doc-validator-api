@@ -6,14 +6,30 @@ use App\Models\Cnpj;
 
 class CnpjController
 {
+    /**
+     * Cnpj Model
+     *
+     * @var Cnpj
+     */
     private Cnpj $cnpjModel;
 
+    /**
+     * Constructor method
+     *
+     * @param array $dependencyInjection
+     */
     public function __construct(array $dependencyInjection)
     {
         $this->cnpjModel = $dependencyInjection['cnpj_model'];
     }
 
-    public function formatCnpj(array $request)
+    /**
+     * Format CNPJ controller method
+     *
+     * @param array $request
+     * @return string
+     */
+    public function formatCnpj(array $request): string
     {
         $cnpj = strval($request['cnpj']);
         $this->cnpjModel->setUnformattedCnpj($cnpj);
@@ -21,6 +37,12 @@ class CnpjController
         return json($this->cnpjModel->getCnpj());
     }
 
+    /**
+     * Validate CNPJ controller method
+     *
+     * @param array $request
+     * @return string
+     */
     public function validateCnpj(array $request): string
     {
         $cnpj = strval($request['cnpj']);

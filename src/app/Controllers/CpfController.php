@@ -39,7 +39,8 @@ class CpfController
     /**
      * Validate Cpf Controller method
      *
-     * @return void
+     * @param array $request
+     * @return string
      */
     public function validateCpf(array $request): string
     {

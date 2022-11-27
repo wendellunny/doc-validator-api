@@ -6,6 +6,10 @@ use Exception;
 
 class Router
 {
+    const METHODS_DATA = [
+        'GET' => '_GET',
+        'POST' => '_POST'
+    ];
     /**
      * Routes
      *
@@ -74,7 +78,7 @@ class Router
             $this->setMethod($routeData['method']);
             $this->setDependencyInjection($routeData['dependency_injection']);
            
-            $this->callController();  
+            $this->callController($httpMethod);  
         }else{
            $this->showNotFoundPage();
         }
@@ -87,7 +91,7 @@ class Router
      */
     private function showNotFoundPage(): void
     {
-        showResponse('<h1>404<h1><h2>Págin Não Encontrada<h2>');
+        showResponse('<h1>404<h1><h2>Págin Não Encontrada<h2>',404);
     }
 
     /**
@@ -95,18 +99,20 @@ class Router
      *
      * @return void
      */
-    private function callController(){
+    private function callController($httpMethod){
         $controllerClass = $this->_controllerClass;
         $dependencyInjection = $this->_dependencyInjection;
         $method = $this->_method;
 
         $instance = new $controllerClass($dependencyInjection);
         try{
-            showResponse($instance->$method());
+            showResponse(
+                $instance->$method($_REQUEST)
+            );
         }catch(Exception $e){
             showResponse(json([
                 'error' => $e->getMessage()
-            ],200));
+            ]),$e->getCode());
         } 
     }
 

@@ -13,17 +13,17 @@ class CnpjController
         $this->cnpjModel = $dependencyInjection['cnpj_model'];
     }
 
-    public function formatCnpj()
+    public function formatCnpj(array $request)
     {
-        $cnpj = strval($_POST['cnpj']);
+        $cnpj = strval($request['cnpj']);
         $this->cnpjModel->setUnformattedCnpj($cnpj);
 
         return json($this->cnpjModel->getCnpj());
     }
 
-    public function validateCnpj(): string
+    public function validateCnpj(array $request): string
     {
-        $cnpj = strval($_POST['cnpj']);
+        $cnpj = strval($request['cnpj']);
         $this->cnpjModel->setUnformattedCnpj($cnpj);
         
         return $this->cnpjModel->validateCnpj()

@@ -25,11 +25,12 @@ class CpfController
     /**
      * Format CPF controller method
      *
+     * @param array $request
      * @return string
      */
-    public function formatCpf(): string
+    public function formatCpf(array $request): string
     {
-        $cpf = strval($_POST['cpf']);
+        $cpf = strval($request['cpf']);
         $this->cpfModel->setUnformattedCpf($cpf);
 
         return json($this->cpfModel->getCpf());
@@ -40,9 +41,9 @@ class CpfController
      *
      * @return void
      */
-    public function validateCpf(): string
+    public function validateCpf(array $request): string
     {
-        $cpf = strval($_POST['cpf']);
+        $cpf = strval($request['cpf']);
         $this->cpfModel->setUnformattedCpf($cpf);
         
         return $this->cpfModel->validateCpf()

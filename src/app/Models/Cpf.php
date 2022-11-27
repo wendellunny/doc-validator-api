@@ -27,11 +27,10 @@ class Cpf
     public function setUnformattedCpf(string $cpf): void
     {
         if(strlen($cpf) !== 11){ 
-            throw new \Exception("You did not pass a Cpf without formatting");  
+            throw new \Exception("You did not pass a Cpf without formatting", 400);  
         }
         $this->unformattedCpf = $cpf;
         $this->formatCpf();
-
     }
 
     /**
@@ -43,7 +42,7 @@ class Cpf
     public function getCpf(): array
     {
         if(empty($this->unformattedCpf)){
-            throw new \Exception("Set Unformatted Cpf Value is Required");  
+            throw new \Exception("Set Unformatted Cpf Value is Required", 400);  
         }
 
         return [
@@ -71,7 +70,7 @@ class Cpf
     public function validateCpf(): bool
     {
         if(empty($this->unformattedCpf)){
-            throw new \Exception("Set Unformatted Cpf Value is Required");  
+            throw new \Exception("Set Unformatted Cpf Value is Required" , 400);  
         }
         $cpf = $this->formattedCpf;
         

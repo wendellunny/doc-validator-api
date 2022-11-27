@@ -65,6 +65,7 @@ class CpfTest extends TestCase
         $unformattedCpf = '447.408.520-55';
 
         $this->expectException(\Exception::class);
+        $this->expectExceptionCode(400);
         $this->expectExceptionMessage('You did not pass a Cpf without formatting');
 
         $this->instance->setUnformattedCpf($unformattedCpf);
@@ -78,6 +79,7 @@ class CpfTest extends TestCase
     public function testsgetCpfWhenNotToSetUnformattedCpf(): void
     {
         $this->expectException(\Exception::class);
+        $this->expectExceptionCode(400);
         $this->expectExceptionMessage('Set Unformatted Cpf Value is Required');
 
         $this->instance->getCpf();
@@ -121,6 +123,7 @@ class CpfTest extends TestCase
     public function testValidateCpfWhenNotToSetUnformattedCpf(): void
     {
         $this->expectException(\Exception::class);
+        $this->expectExceptionCode(400);
         $this->expectExceptionMessage('Set Unformatted Cpf Value is Required');
         $this->instance->validateCpf();
     }

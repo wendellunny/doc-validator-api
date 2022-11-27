@@ -30,6 +30,9 @@ class Kernel
      */
     public function execute(): void
     {
-        $this->_router->execute();
+        $endpoint = $_SERVER['REQUEST_URI'];
+        $httpMethod = $_SERVER['REQUEST_METHOD'];
+
+        $this->_router->execute($endpoint, $httpMethod);
     }
 }

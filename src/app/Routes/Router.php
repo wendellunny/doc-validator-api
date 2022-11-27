@@ -6,10 +6,6 @@ use Exception;
 
 class Router
 {
-    const METHODS_DATA = [
-        'GET' => '_GET',
-        'POST' => '_POST'
-    ];
     /**
      * Routes
      *
@@ -53,11 +49,8 @@ class Router
      *
      * @return void
      */
-    public function execute(): void
+    public function execute(string $endpoint, string $httpMethod): void
     {
-        $endpoint = $_SERVER['REQUEST_URI'];
-        $httpMethod = $_SERVER['REQUEST_METHOD'];
-
         $this->goRoute($endpoint, $httpMethod);
     }
 

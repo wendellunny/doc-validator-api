@@ -54,14 +54,14 @@
        - (Enviar o cpf sem pontos e traços)
        
   - `/cnpj/formatter` Endpoint que faz a formatação de um CNPJ
-   - Método: POST
-   - Campos a serem enviados:
-     - cnpj - string 
-       - (Enviar o cnpj sem pontos e traços)
+    - Método: POST
+    - Campos a serem enviados:
+      - cnpj - string 
+        - (Enviar o cnpj sem pontos e traços)
        
  - `/cnpj/validator` Endpoint que faz a validação de um CNPJ
-   - Método: POST
-   - Campos a serem enviados:
-     - cnpj - string 
-       - (Enviar o cnpj sem pontos e traços)
+    - Método: POST
+    - Campos a serem enviados:
+      - cnpj - string 
+        - (Enviar o cnpj sem pontos e traços)
  

@@ -16,7 +16,7 @@
 \
 \
   `./project-start.sh` 
- \ 
- \
-  - Doc em construção...
+\
+\
+ Ele irá baixar as imagens e subir os containers para sua máquina
  

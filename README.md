@@ -20,3 +20,48 @@
 \
  Ele irá baixar as imagens e subir os containers para sua máquina
  
+ - Após será necessário adicionar o host no seu arquivo hosts de sua máquina
+ \
+   - <b>Localização do arquivo no ubuntu/debian:<b/> /etc/hosts
+     - Linhas a serem adicionadas: 
+     \
+     `127.0.0.1      doc-validator.test` 
+
+   - Localização do arquivo no windows: C:\Windows\System32\drivers\etc
+     - Linhas a serem adicionadas: 
+     \
+     `127.0.0.1      doc-validator.test`
+     \
+     `::1      doc-validator.test`
+
+ 
+ ### Endpoints
+ 
+ Com o projeto devidamente configurado e iniciado podemos começar a usa-lo
+ 
+ Como configuramos nosso host para ser no url `http://doc-validator.test`, todos endpoints irão partir dele 
+ 
+ - `/cpf/formatter` Endpoint que faz a formatação de um CPF
+   - Método: POST
+   - Campos a serem enviados:
+     - cpf - string 
+       - (Enviar o cpf sem pontos e traços)
+       
+ - `/cpf/validator` Endpoint que faz a validação de um CPF
+   - Método: POST
+   - Campos a serem enviados:
+     - cpf - string 
+       - (Enviar o cpf sem pontos e traços)
+       
+  - `/cnpj/formatter` Endpoint que faz a formatação de um CNPJ
+   - Método: POST
+   - Campos a serem enviados:
+     - cnpj - string 
+       - (Enviar o cnpj sem pontos e traços)
+       
+ - `/cnpj/validator` Endpoint que faz a validação de um CNPJ
+   - Método: POST
+   - Campos a serem enviados:
+     - cnpj - string 
+       - (Enviar o cnpj sem pontos e traços)
+ 

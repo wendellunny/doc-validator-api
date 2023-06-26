@@ -13,10 +13,25 @@ require __DIR__
 . DIRECTORY_SEPARATOR
 . 'autoload.php';
 
-$endpoint = $_SERVER['REQUEST_URI'];
-$httpMethod = $_SERVER['REQUEST_METHOD'];
-$routes = new \App\Routes\Routes;
-$router = new \App\Routes\Router($routes);
-$app = new App\Bootstrap\Kernel($router);
+$cnpjFormatterControllerFactory = new \App\Factories\Controllers\Cnpj\CnpjFormatterFactory();
+$cnpjValidatorControllerFactory = new \App\Factories\Controllers\Cnpj\CnpjValidatorFactory();
+$cnpjFactory = new \App\Factories\Models\CnpjFactory();
 
-$app->execute();
+$cpfFormatterControllerFactory = new \App\Factories\Controllers\Cpf\CpfFormatterFactory();
+$cpfValidatorControllerFactory = new \App\Factories\Controllers\Cpf\CpfValidatorFactory();
+$cpfFactory = new \App\Factories\Models\CpfFactory();
+
+$routerSwitch = new \App\Routes\RouterSwitch(
+    $cnpjFormatterControllerFactory,
+    $cnpjValidatorControllerFactory,
+    $cnpjFactory,
+    $cpfFormatterControllerFactory,
+    $cpfValidatorControllerFactory,
+    $cpfFactory
+);
+$router = new \App\Routes\Router();
+
+if (!$routerSwitch->execute($router)) {
+    echo json(['message' => 'Endpoint não encontrado'], 404);
+}
+die();

@@ -20,7 +20,8 @@ function showResponse(string $response, int $code = 200): void
  * @param Array $array
  * @return string
  */
-function json(Array $array): string
+function json(array $array, $code = 200): string
 {
+    http_response_code($code);
     return json_encode($array);
 }

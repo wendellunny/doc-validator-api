@@ -3,6 +3,7 @@
 namespace App\Controllers\Cpf;
 
 use App\Api\Controllers\ControllerInterface;
+use App\Bootstrap\DiContainer;
 use App\Models\Cpf;
 
 class CpfFormatter implements ControllerInterface

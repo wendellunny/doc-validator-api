@@ -4,41 +4,28 @@ namespace App\Routes;
 
 use App\Api\Routes\RouterInterface;
 use App\Api\Routes\RouterSwitchInterface;
-use App\Factories\Controllers\Cnpj\CnpjValidatorFactory;
-use App\Factories\Controllers\Cpf\CpfFormatterFactory;
-use App\Factories\Controllers\Cpf\CpfValidatorFactory;
-use App\Factories\Models\CnpjFactory;
-use App\Factories\Controllers\Cnpj\CnpjFormatterFactory;
-use App\Factories\Models\CpfFactory;
+use App\Controllers\Cnpj\CnpjFormatter;
+use App\Controllers\Cnpj\CnpjValidator;
+use App\Controllers\Cpf\CpfFormatter;
+use App\Controllers\Cpf\CpfValidator;
 
 class RouterSwitch implements RouterSwitchInterface
 {
     public function __construct(
-        private CnpjFormatterFactory $cnpjFormatterFactory,
-        private CnpjValidatorFactory $cnpjValidatorFactory,
-        private CnpjFactory $cnpjFactory,
-        private CpfFormatterFactory $cpfFormatterFactory,
-        private CpfValidatorFactory $cpfValidatorFactory,
-        private CpfFactory $cpfFactory
+        private CnpjFormatter $cnpjFormatter,
+        private CnpjValidator $cnpjValidator,
+        private CpfFormatter $cpfFormatter,
+        private CpfValidator $cpfValidator,
     )
     {
     }
 
     public function execute(RouterInterface $route): bool
     {
-        $cnpj = $this->cnpjFactory->create();
-        $cnpjFormatter = $this->cnpjFormatterFactory->create([$cnpj]);
-        $route->post('/cnpj/formatter', $cnpjFormatter);
-
-        $cnpjValidator = $this->cnpjValidatorFactory->create([$cnpj]);
-        $route->post('/cnpj/validator', $cnpjValidator);
-
-        $cpf = $this->cpfFactory->create();
-        $cpfFormatter = $this->cpfFormatterFactory->create([$cpf]);
-        $route->post('/cpf/formatter', $cpfFormatter);
-
-        $cpfValidator = $this->cpfValidatorFactory->create([$cpf]);
-        $route->post('/cpf/validator', $cpfValidator);
+        $route->post('/cnpj/formatter', $this->cnpjFormatter);
+        $route->post('/cnpj/validator', $this->cnpjValidator);
+        $route->post('/cpf/formatter', $this->cpfFormatter);
+        $route->post('/cpf/validator', $this->cpfValidator);
 
         return false;
     }

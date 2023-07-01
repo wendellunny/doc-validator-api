@@ -3,26 +3,23 @@
 namespace App\Controllers\Cpf;
 
 use App\Api\Controllers\ControllerInterface;
+use App\Api\Services\HttpHandler\ResponseInterface;
 use App\Bootstrap\DiContainer;
 use App\Models\Cpf;
+use App\Services\HttpHandler\Response;
 
 class CpfFormatter implements ControllerInterface
 {
-    public function __construct(private Cpf $cpf)
+    public function __construct(private Response $response, private Cpf $cpf)
     {
     }
 
-    public function execute(array $params): void
+    public function execute(array $params): ResponseInterface
     {
-        try {
-            $cpf = strval($params['cpf']);
-            $this->cpf->setUnformattedCpf($cpf);
 
-            echo json($this->cpf->getCpf());
-        } catch (\Exception $e) {
-            echo json(['message' => $e->getMessage()], $e->getCode());
-        }
+        $cpf = strval($params['cpf']);
+        $this->cpf->setUnformattedCpf($cpf);
 
-        die();
+        return $this->response->json($this->cpf->getCpf());
     }
 }

@@ -2,24 +2,23 @@
 namespace App\Controllers\Cnpj;
 
 use App\Api\Controllers\ControllerInterface;
+use App\Api\Services\HttpHandler\ResponseInterface;
 use App\Models\Cnpj;
+use App\Services\HttpHandler\Response;
 
 class CnpjFormatter implements ControllerInterface
 {
 
-    public function __construct(private Cnpj $cnpj)
+    public function __construct(private Response $response, private Cnpj $cnpj)
     {
     }
 
-    public function execute(array $params): void
+    public function execute(array $params): ResponseInterface
     {
-        try {
-            $cnpj = strval($params['cnpj']);
-            $this->cnpj->setUnformattedCnpj($cnpj);
-            echo json($this->cnpj->getCnpj());
-        } catch (\Exception $e) {
-            echo json(['message' => $e->getMessage()], $e->getCode());
-        }
-        die();
+
+        $cnpj = strval($params['cnpj']);
+        $this->cnpj->setUnformattedCnpj($cnpj);
+
+        return $this->response->json($this->cnpj->getCnpj());
     }
 }

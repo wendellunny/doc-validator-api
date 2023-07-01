@@ -2,34 +2,31 @@
 namespace App\Controllers\Cnpj;
 
 use App\Api\Controllers\ControllerInterface;
+use App\Api\Services\HttpHandler\ResponseInterface;
 use App\Models\Cnpj;
+use App\Services\HttpHandler\Response;
 
 class CnpjValidator implements ControllerInterface
 {
-    public function __construct(private Cnpj $cnpj)
+    public function __construct(private Response $response, private Cnpj $cnpj)
     {}
 
-    public function execute(array $params): void
+    public function execute(array $params): ResponseInterface
     {
-        try {
-            $cnpj = strval($params['cnpj']);
-            $this->cnpj->setUnformattedCnpj($cnpj);
 
-            echo $this->cnpj->validateCnpj()
-                ? json([
-                    'isValid' => true,
-                    'message' => 'Este CNPJ é válido',
-                    'cnpj' => $this->cnpj->getCnpj()
-                ])
-                : json([
-                    'isValid' => false,
-                    'message' => 'Este CNPJ é inválido',
-                    'cnpj' => $this->cnpj->getCnpj()
-                ]);
-        }catch (\Exception $e) {
-            echo json(['message' => $e->getMessage(),], $e->getCode());
-        }
+        $cnpj = strval($params['cnpj']);
+        $this->cnpj->setUnformattedCnpj($cnpj);
 
-        die();
+        return $this->cnpj->validateCnpj()
+            ? $this->response->json([
+                'isValid' => true,
+                'message' => 'Este CNPJ é válido',
+                'cnpj' => $this->cnpj->getCnpj()
+            ])
+            : $this->response->json([
+                'isValid' => false,
+                'message' => 'Este CNPJ é inválido',
+                'cnpj' => $this->cnpj->getCnpj()
+            ]);
     }
 }

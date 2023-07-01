@@ -7,22 +7,23 @@ use App\Api\Bootstrap\DiContainerInterface;
 use App\Api\Routes\RouterInterface;
 use App\Routes\Router;
 use App\Routes\RouterSwitch;
+use App\Services\HttpHandler\ResponseHandler;
 
 class App implements AppInterface
 {
     public function __construct(
         private RouterSwitch $routerSwitch,
         private Router $router,
+        private ResponseHandler $responseHandler,
     ) {}
 
     public function execute(): void
     {
-        try{
-            if (!$this->routerSwitch->execute($this->router)) {
-                echo json(['message' => 'Endpoint não encontrado'], 404);
-            }
+        try {
+            $response = $this->routerSwitch->execute($this->router);
+            $this->responseHandler->handle($response);
         }catch (\Exception $e) {
-            echo json(['message' => 'Endpoint não encontrado'], 404);
+            echo json(['message' => $e->getMessage()], $e->getCode());
         }
 
     }

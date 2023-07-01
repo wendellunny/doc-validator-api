@@ -3,35 +3,31 @@
 namespace App\Controllers\Cpf;
 
 use App\Api\Controllers\ControllerInterface;
+use App\Api\Services\HttpHandler\ResponseInterface;
 use App\Models\Cpf;
+use App\Services\HttpHandler\Response;
 
 class CpfValidator implements ControllerInterface
 {
-    public function __construct(private Cpf $cpf)
+    public function __construct(private Response $response, private Cpf $cpf)
     {
     }
 
-    public function execute(array $params): void
+    public function execute(array $params): ResponseInterface
     {
-        try {
-            $cpf = strval($params['cpf']);
-            $this->cpf->setUnformattedCpf($cpf);
+        $cpf = strval($params['cpf']);
+        $this->cpf->setUnformattedCpf($cpf);
 
-            echo $this->cpf->validateCpf()
-                ? json([
-                    'isValid' => true,
-                    'message' => 'Este CPF é válido',
-                    'cpf' => $this->cpf->getCpf()
-                ])
-                : json([
-                    'isValid' => false,
-                    'message' => 'Este CPF é inválido',
-                    'cpf' => $this->cpf->getCpf()
-                ]);
-        } catch(\Exception $e){
-            echo json(['message' => $e->getMessage()], $e->getCode());
-        }
-
-        die();
+        return $this->cpf->validateCpf()
+            ? $this->response->json([
+                'isValid' => true,
+                'message' => 'Este CPF é válido',
+                'cpf' => $this->cpf->getCpf()
+            ])
+            : $this->response->json([
+                'isValid' => false,
+                'message' => 'Este CPF é inválido',
+                'cpf' => $this->cpf->getCpf()
+            ]);
     }
 }

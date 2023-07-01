@@ -3,6 +3,7 @@
 namespace App\Api\Routes;
 
 use App\Api\Controllers\ControllerInterface;
+use App\Api\Services\HttpHandler\ResponseInterface;
 
 interface RouterInterface
 {
@@ -14,4 +15,6 @@ interface RouterInterface
     public function get(string $uri, ControllerInterface $controller): void;
 
     public function post(string $uri, ControllerInterface $controller): void;
+
+    public function getResponse(): ResponseInterface;
 }

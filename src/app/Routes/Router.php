@@ -4,9 +4,18 @@ namespace App\Routes;
 
 use App\Api\Controllers\ControllerInterface;
 use App\Api\Routes\RouterInterface;
+use App\Api\Services\HttpHandler\ResponseInterface;
+use App\Services\HttpHandler\Response;
 
 class Router implements RouterInterface
 {
+    private ResponseInterface $response;
+
+    public function __construct(Response $response)
+    {
+        $this->response = $response;
+        $this->response->json(['message' => 'Página não encontrada'], 404);
+    }
 
     public function get(
         string $uri,
@@ -17,7 +26,7 @@ class Router implements RouterInterface
             return;
         }
 
-        $controller->execute($_GET);
+        $this->response = $controller->execute($_GET);
     }
 
     public function post(
@@ -29,6 +38,11 @@ class Router implements RouterInterface
             return;
         }
 
-        $controller->execute($_POST);
+        $this->response = $controller->execute($_POST);
+    }
+
+    public function getResponse(): ResponseInterface
+    {
+        return $this->response;
     }
 }

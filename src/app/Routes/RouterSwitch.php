@@ -4,6 +4,7 @@ namespace App\Routes;
 
 use App\Api\Routes\RouterInterface;
 use App\Api\Routes\RouterSwitchInterface;
+use App\Api\Services\HttpHandler\ResponseInterface;
 use App\Controllers\Cnpj\CnpjFormatter;
 use App\Controllers\Cnpj\CnpjValidator;
 use App\Controllers\Cpf\CpfFormatter;
@@ -20,13 +21,13 @@ class RouterSwitch implements RouterSwitchInterface
     {
     }
 
-    public function execute(RouterInterface $route): bool
+    public function execute(RouterInterface $route): ResponseInterface
     {
         $route->post('/cnpj/formatter', $this->cnpjFormatter);
         $route->post('/cnpj/validator', $this->cnpjValidator);
         $route->post('/cpf/formatter', $this->cpfFormatter);
         $route->post('/cpf/validator', $this->cpfValidator);
 
-        return false;
+        return $route->getResponse();
     }
 }
